@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MySchool | All-in-One School Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<div id="loginScreen">
+  <div class="login-blob b1"></div>
+  <div class="login-blob b2"></div>
+  <div class="login-blob b3"></div>
+  <div class="login-card">
+    <div class="login-logo">🎓</div>
+    <h1>MySchool Platform</h1>
+    <p class="login-sub">All-in-one school platform — student community, smart QR attendance, parent follow-up & more</p>
+    <div class="role-grid">
+      <button class="role-card selected" data-role="student">
+        <span class="role-icon">🧑‍🎓</span>
+        <span class="role-name">Student</span>
+        <span class="role-desc">Full access to all services</span>
+      </button>
+      <button class="role-card" data-role="parent">
+        <span class="role-icon">👨‍👩‍👦</span>
+        <span class="role-name">Parent</span>
+        <span class="role-desc">Track children & reports</span>
+      </button>
+    </div>
+    <div class="login-field">
+      <label for="loginName">Name</label>
+      <input id="loginName" type="text" maxlength="30" placeholder="Enter your name..." value="Ahmed Mohamed">
+    </div>
+    <div class="login-field">
+      <label for="loginPass">Password</label>
+      <div class="pass-wrap">
+        <input id="loginPass" type="password" maxlength="30" placeholder="Enter your password..." value="123456">
+        <button type="button" id="passToggle" title="Show / hide password">👁</button>
+      </div>
+    </div>
+    <button id="loginBtn" class="btn btn-primary btn-block">Enter Platform →</button>
+    <p class="login-note">🔒 Demo version — enter any password to sign in</p>
+  </div>
+</div>
+
+<div id="app" class="hidden">
+  <aside id="sidebar">
+    <div class="side-logo">
+      <span class="logo-icon">🎓</span>
+      <div><b>MySchool</b><small>All-in-one platform</small></div>
+    </div>
+    <nav id="sideNav"></nav>
+    <div class="side-user">
+      <div class="avatar" id="sideAvatar">A</div>
+      <div class="side-user-info"><b id="sideName">Ahmed Mohamed</b><small id="sideRole">Student</small></div>
+      <button id="logoutBtn" title="Log out">⏻</button>
+    </div>
+  </aside>
+
+  <main id="main">
+    <header id="topbar">
+      <button id="menuBtn" class="icon-btn">☰</button>
+      <h2 id="pageTitle">Home</h2>
+      <div class="topbar-actions">
+        <div class="notif-wrap">
+          <button id="notifBtn" class="icon-btn">🔔<span id="notifBadge" class="badge">3</span></button>
+          <div id="notifPanel" class="notif-panel hidden"></div>
+        </div>
+        <div class="avatar sm" id="topAvatar">A</div>
+      </div>
+    </header>
+
+    <div id="pages">
+
+      <section class="page" id="page-home">
+        <div class="welcome-banner">
+          <div>
+            <h2>Welcome back, <span id="welcomeName">Ahmed</span> 👋</h2>
+            <p>You have a <b>Math</b> exam in <b>3 days</b> — good luck!</p>
+          </div>
+          <div class="welcome-art">📚</div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card"><span class="stat-icon">✅</span><div><b id="statAttend">96%</b><small>Attendance rate</small></div></div>
+          <div class="stat-card"><span class="stat-icon">🏅</span><div><b id="statPoints">142</b><small>Behavior points</small></div></div>
+          <div class="stat-card"><span class="stat-icon">⏳</span><div><b id="statNextExam">3 days</b><small>Next exam</small></div></div>
+          <div class="stat-card"><span class="stat-icon">🏆</span><div><b>3rd</b><small>Your class rank</small></div></div>
+        </div>
+        <div class="home-grid">
+          <div class="card">
+            <h3>📅 Upcoming Exams</h3>
+            <ul class="mini-exams" id="miniExams"></ul>
+          </div>
+          <div class="card">
+            <h3>⚡ Quick Actions</h3>
+            <div class="quick-actions">
+              <button data-goto="community"><span>💬</span>Community</button>
+              <button data-goto="qr"><span>📱</span>Check In</button>
+              <button data-goto="rating"><span>⭐</span>Rate Courses</button>
+              <button data-goto="behavior"><span>🏅</span>My Points</button>
+              <button data-goto="exams"><span>📅</span>Exams</button>
+              <button data-goto="complaints"><span>🤫</span>Confidential Complaint</button>
+              <button data-goto="quizzes"><span>🧠</span>Practice</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-community">
+        <div class="community-layout">
+          <div class="card channels">
+            <h3>Channels</h3>
+            <div class="ch-group">Text channels</div>
+            <ul id="channelList"></ul>
+            <div class="ch-group">Voice rooms</div>
+            <div class="voice-room">
+              <div class="voice-head">🔊 Group Study Room <span class="chip" id="voiceCount">4</span></div>
+              <div class="voice-users" id="voiceUsers"></div>
+              <div class="voice-controls">
+                <button id="voiceBtn" class="btn btn-ghost btn-sm">🎙️ Join Room</button>
+                <button id="muteBtn" class="btn btn-ghost btn-sm hidden">🎙️ Mute Mic</button>
+              </div>
+            </div>
+            <div class="ch-group">Online now — <span id="onlineCount">0</span></div>
+            <ul class="online-list" id="onlineList"></ul>
+          </div>
+          <div class="card chat">
+            <div class="chat-head">
+              <b id="chatTitle"># general</b>
+              <small id="chatDesc">General student chat — students only 🔒</small>
+            </div>
+            <div class="chat-msgs" id="chatMsgs"></div>
+            <div class="emoji-bar" id="emojiBar"></div>
+            <div class="chat-input">
+              <input id="msgInput" type="text" maxlength="300" placeholder="Type a message...">
+              <button id="sendBtn" class="btn btn-primary">Send</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-qr">
+        <div class="qr-layout">
+          <div class="card qr-card">
+            <h3>📱 Dynamic QR Attendance Code</h3>
+            <p class="muted">The code auto-refreshes every 30 seconds to prevent screenshots & fraud</p>
+            <div class="qr-wrap">
+              <canvas id="qrCanvas" width="220" height="220"></canvas>
+              <svg class="qr-ring" viewBox="0 0 120 120">
+                <circle class="ring-bg" cx="60" cy="60" r="56"></circle>
+                <circle class="ring-fg" id="ringFg" cx="60" cy="60" r="56"></circle>
+              </svg>
+            </div>
+            <div class="qr-timer"><span>Code expires in</span> <b id="qrCount">30</b> <span>s</span></div>
+            <code class="qr-token" id="qrToken">ATT-0000-0000</code>
+            <div class="qr-actions">
+              <button id="scanBtn" class="btn btn-ghost">📷 Simulate Scan</button>
+              <button id="checkinBtn" class="btn btn-primary">✅ Check In</button>
+            </div>
+            <div id="qrStatus" class="qr-status">Scan the code, then check in</div>
+          </div>
+          <div class="card gps-card">
+            <h3>📍 GPS Location Verification</h3>
+            <p class="muted">Attendance is accepted only if you are inside the school geofence (200 m)</p>
+            <div class="gps-box" id="gpsBox">Location not verified yet</div>
+            <div class="gps-actions">
+              <button id="gpsBtn" class="btn btn-ghost btn-sm">🛰️ Detect My Real Location</button>
+              <button id="gpsSimBtn" class="btn btn-ghost btn-sm">🎯 Simulate On-Campus Location</button>
+            </div>
+            <div class="offline-row">
+              <label class="switch"><input type="checkbox" id="offlineToggle"><span></span></label>
+              <div><b>Offline Mode</b><small>Check in even with weak internet — records sync automatically later</small></div>
+            </div>
+            <div id="pendingSync" class="pending hidden">⏳ <b id="pendingCount">0</b> attendance record(s) pending sync</div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>📋 My Attendance Log</h3>
+          <table class="table">
+            <thead><tr><th>Day</th><th>Date</th><th>Time</th><th>Method</th><th>Status</th></tr></thead>
+            <tbody id="attendTable"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="page-exams">
+        <div class="exams-head">
+          <div>
+            <h3>📅 Exam Schedule</h3>
+            <p class="muted">Turn on reminders to get notified before each exam — download the schedule as PDF</p>
+          </div>
+          <div class="exams-actions">
+            <button id="enableAllNotifs" class="btn btn-ghost">🔔 Enable All Reminders</button>
+            <button id="pdfBtn" class="btn btn-primary">⬇️ Download PDF</button>
+          </div>
+        </div>
+        <div class="exams-grid" id="examsGrid"></div>
+      </section>
+
+      <section class="page" id="page-rating">
+        <div class="exams-head">
+          <div>
+            <h3>⭐ Rate Courses & Lectures</h3>
+            <p class="muted">Quick & simple rating — Netflix style — without leaving the platform</p>
+          </div>
+        </div>
+        <div class="courses-grid" id="coursesGrid"></div>
+      </section>
+
+      <section class="page" id="page-quizzes">
+        <div class="exams-head">
+          <div>
+            <h3>🧠 Online Quizzes & Exercises</h3>
+            <p class="muted">MCQ practice per subject — timer, instant feedback, answer review & best-score tracking</p>
+          </div>
+        </div>
+        <div class="quiz-grid" id="quizList"></div>
+        <div id="quizRunner" class="hidden"></div>
+      </section>
+
+      <section class="page" id="page-behavior">
+        <div class="behavior-layout">
+          <div class="card points-card">
+            <h3>Behavior & Achievement Points</h3>
+            <div class="points-big" id="pointsBig">142</div>
+            <small class="muted">Your total behavior & academic points</small>
+            <div class="level-bar"><div id="levelFill"></div></div>
+            <small id="levelLabel" class="muted"></small>
+          </div>
+          <div class="card">
+            <h3>🏅 Badges</h3>
+            <div class="badges-grid" id="badgesGrid"></div>
+          </div>
+        </div>
+        <div class="behavior-bottom">
+          <div class="card">
+            <h3>📜 Points History</h3>
+            <ul class="points-history" id="pointsHistory"></ul>
+            <button id="simPointsBtn" class="btn btn-ghost btn-sm">🎬 Simulate: teacher awards you points</button>
+          </div>
+          <div class="card">
+            <h3>🏆 Class Leaderboard</h3>
+            <ol class="leaderboard" id="leaderboard"></ol>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-complaints">
+        <div class="conf-banner">
+          <span class="conf-icon">🔒</span>
+          <div>
+            <b>100% Fully Confidential</b>
+            <p>Your identity is fully encrypted — the reported teacher or student, and absolutely no one, can ever find out who submitted the complaint.</p>
+          </div>
+        </div>
+        <div class="complaint-layout">
+          <form id="complaintForm" class="card">
+            <h3>Submit a Quick Complaint</h3>
+            <label>Complaint type</label>
+            <div class="seg" id="complaintType">
+              <button type="button" data-v="teacher" class="active">Against a Teacher</button>
+              <button type="button" data-v="student">Against a Student</button>
+              <button type="button" data-v="other">Other</button>
+            </div>
+            <label for="cmpTitle">Complaint title</label>
+            <input id="cmpTitle" type="text" required maxlength="80" placeholder="e.g. Misbehavior inside the classroom">
+            <label for="cmpDesc">Complaint details</label>
+            <textarea id="cmpDesc" rows="4" required maxlength="600" placeholder="Describe the situation in detail..."></textarea>
+            <label for="cmpSeverity">Severity</label>
+            <select id="cmpSeverity">
+              <option>Normal</option>
+              <option selected>Important</option>
+              <option>Urgent</option>
+            </select>
+            <div class="anon-note">👤 You will submit as <b>Anonymous User #<span id="anonId">0000</span></b></div>
+            <button class="btn btn-primary btn-block" type="submit">🔐 Send Encrypted</button>
+            <div id="cmpProgress" class="encrypt-bar hidden"><div></div></div>
+          </form>
+          <div class="card">
+            <h3>📁 Submitted Complaints</h3>
+            <ul class="my-complaints" id="myComplaints"></ul>
+            <p class="muted small">Complaints are reviewed by an independent committee. You only receive a ticket number to follow up — your identity is never revealed.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="page" id="page-parent">
+        <div class="parent-head">
+          <div class="child-tabs" id="childTabs"></div>
+          <button id="parentNotifBtn" class="btn btn-primary">🔔 Enable Class Notifications</button>
+        </div>
+        <div class="stats-grid" id="parentStats"></div>
+        <div class="parent-grid">
+          <div class="card">
+            <h3>📊 Weekly Attendance Report</h3>
+            <div class="chart" id="attendChart"></div>
+            <div class="chart-days" id="chartDays"></div>
+          </div>
+          <div class="card">
+            <h3>📈 Academic Performance</h3>
+            <div id="gradesBars"></div>
+          </div>
+        </div>
+        <div class="parent-grid2">
+          <div class="card">
+            <h3>📋 Attendance & Absence Log</h3>
+            <table class="table">
+              <thead><tr><th>Day</th><th>Date</th><th>Status</th></tr></thead>
+              <tbody id="parentAttendTable"></tbody>
+            </table>
+          </div>
+          <div class="card">
+            <h3>🔔 Latest Important Alerts</h3>
+            <ul class="feed" id="parentFeed"></ul>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <div id="chatbot">
+    <div id="cbPanel" class="hidden">
+      <div class="cb-head">
+        <div class="cb-bot-avatar">🤖</div>
+        <div><b>School Assistant</b><small><span class="cb-online"></span>Online — replies instantly</small></div>
+        <button id="cbClose">✕</button>
+      </div>
+      <div class="cb-msgs" id="cbMsgs"></div>
+      <div class="cb-chips" id="cbChips"></div>
+      <div class="cb-input">
+        <input id="cbInput" type="text" maxlength="200" placeholder="Ask me anything...">
+        <button id="cbSend" class="btn btn-primary btn-sm">Send</button>
+      </div>
+    </div>
+    <button id="cbToggle" title="Chat with the school assistant">💬</button>
+  </div>
+</div>
+
+<div id="toasts"></div>
+<script src="js/app.js"></script>
+</body>
+</html>
